@@ -12,23 +12,32 @@
       <div class="bg-surface rounded-lg shadow-civic-lg border border-border p-6 sm:p-8">
         <h1 class="text-2xl font-bold text-text-primary mb-4 text-center">Sign In</h1>
 
-        <!-- Error box -->
+        <!-- Error Box -->
         <div id="errorBox" class="hidden bg-red-100 text-red-700 p-2 rounded mb-4"></div>
 
-        <!-- Login form -->
         <form id="loginForm" class="space-y-6">
+          <!-- Email -->
           <div>
-            <label for="email" class="block text-sm font-medium text-text-primary mb-2">Email Address *</label>
+            <label for="email" class="block text-sm font-medium text-text-primary mb-2">
+              Email Address *
+            </label>
             <input type="email" id="email" required class="form-input w-full p-2 border rounded">
           </div>
 
-          <div>
-            <label for="password" class="block text-sm font-medium text-text-primary mb-2">Password *</label>
-            <input type="password" id="password" required class="form-input w-full p-2 border rounded">
-            <button type="button" id="togglePassword">Show/Hide</button>
+          <!-- Password -->
+          <div class="relative">
+            <label for="password" class="block text-sm font-medium text-text-primary mb-2">
+              Password *
+            </label>
+            <input type="password" id="password" required class="form-input w-full p-2 border rounded pr-10">
+            <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center text-text-secondary">
+              👁️
+            </button>
           </div>
 
-          <button type="submit" class="w-full bg-primary text-white p-2 rounded font-semibold">Sign In</button>
+          <button type="submit" class="w-full bg-primary text-white p-2 rounded font-semibold">
+            Sign In
+          </button>
         </form>
 
         <p class="mt-4 text-center text-text-secondary">
@@ -39,7 +48,57 @@
     </div>
   </main>
 
-  <!-- Auth JS -->
-  <script type="module" src="../js/auth.js"></script>
+  <script type="module">
+    import { auth, db } from './auth.js';
+    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const loginForm = document.getElementById('loginForm');
+    const errorBox = document.getElementById('errorBox');
+    const passwordInput = document.getElementById('password');
+    const toggleBtn = document.getElementById('togglePassword');
+
+    // Toggle password visibility
+    toggleBtn.addEventListener('click', () => {
+      passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+    });
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox.classList.add('hidden');
+
+      const email = document.getElementById('email').value.trim();
+      const password = passwordInput.value;
+
+      try {
+        // 1️⃣ Sign in using Firebase Auth
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // 2️⃣ Query Firestore for role
+        const usersRef = collection(db, "user"); // Firestore collection
+        const q = query(usersRef, where("email", "==", user.email));
+        const snapshot = await getDocs(q);
+
+        if (snapshot.empty) {
+          errorBox.innerText = "No user record found. Contact support.";
+          errorBox.classList.remove('hidden');
+          return;
+        }
+
+        const userData = snapshot.docs[0].data();
+
+        // 3️⃣ Redirect based on role
+        if (userData.role === "admin") window.location.href = "admin_dashboard.html";
+        else if (userData.role === "driver") window.location.href = "driver_dashboard.html";
+        else window.location.href = "user_dashboard.html";
+
+      } catch (err) {
+        console.error(err);
+        errorBox.innerText = "Incorrect email or password!";
+        errorBox.classList.remove('hidden');
+      }
+    });
+  </script>
 </body>
 </html>
