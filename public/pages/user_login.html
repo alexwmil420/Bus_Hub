@@ -31,12 +31,18 @@
             Password *
           </label>
           <input type="password" id="password" required class="form-input w-full p-2 border rounded pr-10">
+
           <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center text-text-secondary">
-            <!-- Eye Open SVG -->
-            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+
+            <!-- Default Eye Icon -->
+            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
             </svg>
+
           </button>
         </div>
 
@@ -46,7 +52,7 @@
       </form>
 
       <p class="mt-4 text-center text-text-secondary">
-        Don't have an account? 
+        Don't have an account?
         <a href="user_registration.html" class="text-primary hover:underline">Register</a>
       </p>
     </div>
@@ -54,7 +60,7 @@
 </main>
 
 <script type="module">
-import { auth, db } from './auth.js';
+import { auth, db } from '../firebase/auth.js';
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -64,69 +70,67 @@ const passwordInput = document.getElementById('password');
 const toggleBtn = document.getElementById('togglePassword');
 const eyeIcon = document.getElementById('eyeIcon');
 
-// Toggle password visibility
+// SVG paths
+const eyeOpen = `
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+`;
+
+const eyeClosed = `
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.956 9.956 0 012.223-3.337M6.343 6.343a9.956 9.956 0 014.657-1.657 10.05 10.05 0 014.657 1.657M3 3l18 18" />
+`;
+
 toggleBtn.addEventListener('click', () => {
-    if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        // Eye closed
-        eyeIcon.innerHTML = `
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.956 9.956 0 012.223-3.337M6.343 6.343a9.956 9.956 0 014.657-1.657 10.05 10.05 0 014.657 1.657M3 3l18 18" />
-        `;
-    } else {
-        passwordInput.type = 'password';
-        // Eye open
-        eyeIcon.innerHTML = `
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-        `;
-    }
+  const showing = passwordInput.type === "text";
+  passwordInput.type = showing ? "password" : "text";
+  eyeIcon.innerHTML = showing ? eyeOpen : eyeClosed;
 });
 
 // UB email validation
 function isUBEmail(email) {
-    return email.toLowerCase().endsWith("@ub.edu.bz");
+  return email.toLowerCase().endsWith("@ub.edu.bz");
 }
 
 loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    errorBox.classList.add('hidden');
+  e.preventDefault();
+  errorBox.classList.add('hidden');
 
-    const email = document.getElementById('email').value.trim();
-    const password = passwordInput.value;
+  const email = document.getElementById('email').value.trim();
+  const password = passwordInput.value;
 
-    if (!isUBEmail(email)) {
-        errorBox.innerText = "Only UB (@ub.edu.bz) emails are allowed.";
-        errorBox.classList.remove('hidden');
-        return;
+  if (!isUBEmail(email)) {
+    errorBox.innerText = "Only UB (@ub.edu.bz) emails are allowed.";
+    errorBox.classList.remove('hidden');
+    return;
+  }
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const uid = userCredential.user.uid;
+
+    const userRef = doc(db, "users", uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      errorBox.innerText = "User record not found. Contact admin.";
+      errorBox.classList.remove('hidden');
+      return;
     }
 
-    try {
-        // Sign in
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const uid = userCredential.user.uid;
+    const userData = userSnap.data();
 
-        // Get user role from Firestore
-        const userRef = doc(db, "users", uid);
-        const userSnap = await getDoc(userRef);
+    if (userData.role === "admin") window.location.href = "admin_dashboard.html";
+    else if (userData.role === "driver") window.location.href = "driver_dashboard.html";
+    else window.location.href = "user_dashboard.html";
 
-        if (!userSnap.exists()) {
-            errorBox.innerText = "User record not found. Contact admin.";
-            errorBox.classList.remove('hidden');
-            return;
-        }
-
-        const userData = userSnap.data();
-
-        // Redirect by role
-        if (userData.role === "admin") window.location.href = "admin_dashboard.html";
-        else if (userData.role === "driver") window.location.href = "driver_dashboard.html";
-        else window.location.href = "user_dashboard.html";
-
-    } catch (err) {
-        console.error(err);
-        errorBox.innerText = "Incorrect email or password!";
-        errorBox.classList.remove('hidden');
-    }
+  } catch (err) {
+    console.error(err);
+    errorBox.innerText = "Incorrect email or password!";
+    errorBox.classList.remove('hidden');
+  }
 });
 </script>
 
