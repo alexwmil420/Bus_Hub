@@ -14,8 +14,9 @@
   };
 
 // 2. Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
+const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
 
 // ==========================
 // LOGIN FUNCTION
@@ -55,16 +56,16 @@ function routeUserByRole(email) {
 
     // ADMIN EMAILS
     const adminEmails = [
-        "admin@ub.edu",
-        "bossman@ub.edu",
-        "itadmin@ub.edu"
+        "admin@ub.edu.bz",
+        "bossman@ub.edu.bz",
+        "itadmin@ub.edu.bz"
     ];
 
     // DRIVERS
     const driverEmails = [
-        "driver@ub.edu",
-        "driver2@ub.edu",
-        "busdriver@ub.edu"
+        "driver@ub.edu.bz",
+        "driver2@ub.edu.bz",
+        "busdriver@ub.edu.bz"
     ];
 
     // ROUTES
@@ -79,4 +80,5 @@ function routeUserByRole(email) {
         window.location.href = "user_dashboard.html";
     }
 }
+
 
