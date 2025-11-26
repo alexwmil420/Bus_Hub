@@ -32,6 +32,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
     import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -45,6 +46,7 @@
     };
 
     const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
     const db = getFirestore(app);
 
     // Toggle password visibility
@@ -57,31 +59,36 @@
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
+      const password = passwordInput.value;
       const errorBox = document.getElementById("errorBox");
       errorBox.classList.add("hidden");
 
       try {
-        const usersRef = collection(db, "user"); // 🔥 collection is "user"
-        const q = query(usersRef, where("email", "==", email), where("password", "==", password));
+        // 1️⃣ Sign in with Firebase Auth
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // 2️⃣ Fetch user role from Firestore
+        const usersRef = collection(db, "user");
+        const q = query(usersRef, where("email", "==", email));
         const snapshot = await getDocs(q);
 
         if (snapshot.empty) {
-          errorBox.innerText = "Incorrect email or password!";
+          errorBox.innerText = "User not found in database!";
           errorBox.classList.remove("hidden");
           return;
         }
 
         const userData = snapshot.docs[0].data();
 
-        // Redirect based on role
+        // 3️⃣ Redirect based on role
         if (userData.role === "admin") window.location.href = "admin_dashboard.html";
         else if (userData.role === "driver") window.location.href = "driver_dashboard.html";
         else window.location.href = "user_dashboard.html";
 
       } catch (err) {
         console.error(err);
-        errorBox.innerText = "An error occurred. Try again.";
+        errorBox.innerText = "Incorrect email or password!";
         errorBox.classList.remove("hidden");
       }
     });
