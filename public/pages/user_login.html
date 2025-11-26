@@ -1,127 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login - BusHub</title>
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - BusHub</title>
+  <link rel="stylesheet" href="../css/main.css">
 </head>
-<body class="bg-background min-h-screen flex items-center justify-center">
+<body class="bg-background min-h-screen">
+  <main class="flex-1 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md mx-auto">
+      <div class="bg-surface rounded-lg shadow-civic-lg border border-border p-6 sm:p-8">
+        <h1 class="text-2xl font-bold text-text-primary mb-4 text-center">Sign In</h1>
 
-    <div class="max-w-md w-full bg-surface rounded-lg shadow-civic-lg border border-border p-6 sm:p-8">
-        <div class="text-center mb-6">
-            <h1 class="text-2xl font-bold text-text-primary">Sign In to BusHub</h1>
-            <p class="text-text-secondary mt-2">Access your account to report bus issues and manage complaints</p>
+        <div id="loginError" class="hidden bg-red-100 text-red-700 p-2 rounded mb-4">
+          <span id="loginErrorMessage"></span>
         </div>
 
-        <!-- Login Error -->
-        <div id="loginError" class="hidden bg-error-100 text-error-700 p-3 rounded mb-4 text-sm">
-            <span id="loginErrorMessage"></span>
-        </div>
-
-        <!-- Login Form -->
         <form id="loginForm" class="space-y-6">
-            <div>
-                <label for="email" class="block text-sm font-medium text-text-primary mb-2">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your UB email" class="form-input w-full" required>
-            </div>
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-text-primary mb-2">Email Address *</label>
+            <input type="email" id="email" name="email" placeholder="Enter your UB email" required class="form-input w-full p-2 border rounded">
+          </div>
 
-            <div>
-                <label for="password" class="block text-sm font-medium text-text-primary mb-2">Password</label>
-                <div class="relative">
-                    <input type="password" id="password" name="password" placeholder="Enter your password" class="form-input w-full pr-10" required>
-                    <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                        <svg class="w-5 h-5 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <button type="submit" id="loginButton" class="w-full btn-primary py-3 text-base font-semibold rounded-lg shadow-civic hover:shadow-civic-md transition-all duration-200 flex items-center justify-center space-x-2">
-                <span id="loginButtonText">Sign In</span>
-                <svg id="loginSpinner" class="w-5 h-5 text-white animate-spin hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" class="opacity-25"></circle>
-                    <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" class="opacity-75"></path>
-                </svg>
+          <!-- Password -->
+          <div class="relative">
+            <label for="password" class="block text-sm font-medium text-text-primary mb-2">Password *</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required class="form-input w-full p-2 border rounded pr-10">
+            <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+              <svg id="eyeIcon" class="w-5 h-5 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+              </svg>
             </button>
+          </div>
+
+          <button type="submit" class="w-full bg-primary text-white p-2 rounded font-semibold">
+            Sign In
+          </button>
         </form>
 
-        <p class="mt-6 text-center text-text-secondary text-sm">
-            Don't have an account? 
-            <a href="user_registration.html" class="text-primary hover:underline">Sign up</a>
+        <p class="mt-4 text-center text-text-secondary">
+          Don't have an account? 
+          <a href="user_registration.html" class="text-primary hover:underline">Register</a>
         </p>
+      </div>
     </div>
+  </main>
 
-    <!-- Firebase & Login Script -->
-    <script type="module">
-        import { auth, signInWithEmailAndPassword, db, doc, getDoc } from "../firebase/firebase.js";
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // Toggle password visibility
-        const togglePassword = document.getElementById("togglePassword");
-        const passwordField = document.getElementById("password");
-        togglePassword.addEventListener("click", () => {
-            if (passwordField.type === "password") passwordField.type = "text";
-            else passwordField.type = "password";
-        });
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDZzNQcecE-m7VdN6EZ4q4oo_gudzvsjyc",
+      authDomain: "bushub-e5d68.firebaseapp.com",
+      projectId: "bushub-e5d68",
+      storageBucket: "bushub-e5d68.appspot.com",
+      messagingSenderId: "419368778198",
+      appId: "1:419368778198:web:a9a3e6ea4f6f95bf9a8c77",
+      measurementId: "G-SHBY0QXGHN"
+    };
 
-        // UB email validation
-        function validateUBDomain(email) {
-            return email.toLowerCase().endsWith("@ub.edu.bz");
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const loginForm = document.getElementById('loginForm');
+    const loginError = document.getElementById('loginError');
+    const loginErrorMessage = document.getElementById('loginErrorMessage');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordField = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+
+    // Password show/hide
+    togglePassword.addEventListener('click', () => {
+      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordField.setAttribute('type', type);
+    });
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loginError.classList.add("hidden");
+
+      const email = document.getElementById('email').value.trim();
+      const password = passwordField.value;
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+        // Get role from Firestore
+        const q = query(collection(db, "user"), where("email", "==", email));
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+          loginErrorMessage.textContent = "No user data found. Contact admin.";
+          loginError.classList.remove("hidden");
+          return;
         }
 
-        document.getElementById("loginForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
+        const userData = querySnapshot.docs[0].data();
+        const role = userData.role?.toLowerCase();
 
-            const email = document.getElementById("email").value.trim();
-            const password = passwordField.value;
-            const loginError = document.getElementById("loginError");
-            const loginErrorMessage = document.getElementById("loginErrorMessage");
+        if (role === "admin") {
+          window.location.href = "admin_dashboard.html";
+        } else if (role === "driver") {
+          window.location.href = "driver_dashboard.html";
+        } else {
+          window.location.href = "user_dashboard.html";
+        }
 
-            loginError.classList.add("hidden");
-
-            if (!validateUBDomain(email)) {
-                loginErrorMessage.textContent = "Only UB (@ub.edu.bz) emails are allowed.";
-                loginError.classList.remove("hidden");
-                return;
-            }
-
-            // Show spinner
-            document.getElementById("loginButtonText").textContent = "Signing In...";
-            document.getElementById("loginSpinner").classList.remove("hidden");
-
-            try {
-                const userCred = await signInWithEmailAndPassword(auth, email, password);
-                const uid = userCred.user.uid;
-
-                const userRef = doc(db, "user", uid);
-                const userSnap = await getDoc(userRef);
-
-                if (!userSnap.exists()) {
-                    loginErrorMessage.textContent = "User record missing. Contact admin.";
-                    loginError.classList.remove("hidden");
-                    return;
-                }
-
-                const role = userSnap.data().role;
-
-                if (role === "admin") window.location.href = "admin_dashboard.html";
-                else if (role === "driver") window.location.href = "driver_dashboard.html";
-                else window.location.href = "user_dashboard.html";
-
-            } catch (err) {
-                console.error(err);
-                loginErrorMessage.textContent = "Invalid email or password.";
-                loginError.classList.remove("hidden");
-            } finally {
-                document.getElementById("loginButtonText").textContent = "Sign In";
-                document.getElementById("loginSpinner").classList.add("hidden");
-            }
-        });
-    </script>
+      } catch (error) {
+        console.error(error);
+        loginErrorMessage.textContent = "Incorrect email or password.";
+        loginError.classList.remove("hidden");
+      }
+    });
+  </script>
 </body>
 </html>
