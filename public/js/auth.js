@@ -3,14 +3,15 @@
 // =======================
 
 // 1. Your Firebase config (COPY YOUR OWN CONFIG HERE)
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyDZzNQcecE-m7VdN6EZ4q4oo_gudzvsjyc",
+    authDomain: "bushub-e5d68.firebaseapp.com",
+    projectId: "bushub-e5d68",
+    storageBucket: "bushub-e5d68.firebasestorage.app",
+    messagingSenderId: "419368778198",
+    appId: "1:419368778198:web:a9a3e6ea4f6f95bf9a8c77",
+    measurementId: "G-SHBY0QXGHN"
+  };
 
 // 2. Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
@@ -61,7 +62,7 @@ function routeUserByRole(email) {
 
     // DRIVERS
     const driverEmails = [
-        "driver1@ub.edu",
+        "driver@ub.edu",
         "driver2@ub.edu",
         "busdriver@ub.edu"
     ];
@@ -78,3 +79,4 @@ function routeUserByRole(email) {
         window.location.href = "user_dashboard.html";
     }
 }
+
