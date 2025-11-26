@@ -1,27 +1,26 @@
-// =======================
-// Firebase Auth Handler
-// =======================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-// 1. Your Firebase config (COPY YOUR OWN CONFIG HERE)
-  const firebaseConfig = {
+// =======================
+// Firebase config
+// =======================
+const firebaseConfig = {
     apiKey: "AIzaSyDZzNQcecE-m7VdN6EZ4q4oo_gudzvsjyc",
     authDomain: "bushub-e5d68.firebaseapp.com",
     projectId: "bushub-e5d68",
-    storageBucket: "bushub-e5d68.firebasestorage.app",
+    storageBucket: "bushub-e5d68.appspot.com", // ✅ fixed
     messagingSenderId: "419368778198",
     appId: "1:419368778198:web:a9a3e6ea4f6f95bf9a8c77",
     measurementId: "G-SHBY0QXGHN"
-  };
+};
 
-// 2. Initialize Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-
+const auth = getAuth(app);
 
 // ==========================
 // LOGIN FUNCTION
 // ==========================
-
 document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -29,13 +28,11 @@ document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
     const password = document.getElementById("password").value;
 
     try {
-        // Firebase login
-        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password); // ✅ fixed
         const user = userCredential.user;
 
         console.log("Login successful:", user.email);
 
-        // Now determine role
         routeUserByRole(email);
 
     } catch (error) {
@@ -49,36 +46,19 @@ document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
 
 // ==========================
 // ROLE ROUTER
-// (checks email → sends user to correct dashboard)
 // ==========================
-
 function routeUserByRole(email) {
+    const adminEmails = ["admin@ub.edu.bz","bossman@ub.edu.bz","itadmin@ub.edu.bz"];
+    const driverEmails = ["driver@ub.edu.bz","driver2@ub.edu.bz","busdriver@ub.edu.bz"];
 
-    // ADMIN EMAILS
-    const adminEmails = [
-        "admin@ub.edu.bz",
-        "bossman@ub.edu.bz",
-        "itadmin@ub.edu.bz"
-    ];
-
-    // DRIVERS
-    const driverEmails = [
-        "driver@ub.edu.bz",
-        "driver2@ub.edu.bz",
-        "busdriver@ub.edu.bz"
-    ];
-
-    // ROUTES
-    if (adminEmails.includes(email)) {
-        window.location.href = "admin_dashboard.html";
-    }
-    else if (driverEmails.includes(email)) {
-        window.location.href = "driver_dashboard.html";
-    }
-    else {
-        // Default student user
-        window.location.href = "user_dashboard.html";
-    }
+    if (adminEmails.includes(email)) window.location.href = "admin_dashboard.html";
+    else if (driverEmails.includes(email)) window.location.href = "driver_dashboard.html";
+    else window.location.href = "user_dashboard.html";
 }
 
-
+// ==========================
+// Optional: react to auth state
+// ==========================
+onAuthStateChanged(auth, (user) => {
+    if (user) console.log("User already logged in:", user.email);
+});
