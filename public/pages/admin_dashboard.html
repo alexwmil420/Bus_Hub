@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - BusHub</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* Basic tab switching with no JS framework */
+    .tab-content { display: none; }
+    .tab-active { display: block; }
+    .tab-btn-active { 
+      border-bottom: 2px solid #2563EB; 
+      color: #2563EB; 
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body class="bg-background min-h-screen text-text-primary flex">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-surface border-r border-border min-h-screen p-6">
+    <h1 class="text-xl font-bold text-primary mb-6">BusHub Admin</h1>
+    <nav class="flex flex-col space-y-3 text-text-secondary">
+      <a href="admin_dashboard.html" class="hover:text-primary">Dashboard</a>
+      <a href="#" class="hover:text-primary">Complaints</a>
+      <a href="#" class="hover:text-primary">Users</a>
+      <a href="#" class="hover:text-primary">Drivers</a>
+      <a href="#" class="hover:text-primary">Reports</a>
+      <a href="#" class="hover:text-primary">Settings</a>
+      <a href="user_login.html" class="text-error hover:text-primary mt-6">Logout</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8">
+
+    <!-- Tabs -->
+    <div class="border-b border-border mb-6 flex space-x-6">
+      <button class="tab-btn tab-btn-active" data-tab="complaints">Complaints</button>
+      <button class="tab-btn" data-tab="users">Users</button>
+      <button class="tab-btn" data-tab="drivers">Drivers</button>
+      <button class="tab-btn" data-tab="reports">Reports</button>
+      <button class="tab-btn" data-tab="settings">Settings</button>
+    </div>
+
+    <!-- TAB: Complaints (default) -->
+    <div id="complaints" class="tab-content tab-active">
+      <h2 class="text-xl font-semibold mb-4">Complaint Management</h2>
+
+      <div class="bg-surface border border-border shadow-civic-lg rounded-lg">
+        <div class="flex justify-between items-center px-6 py-4 border-b border-border">
+          <h3 class="font-semibold">All Complaints</h3>
+          <input type="text" placeholder="Search..." class="form-input w-64" />
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-border text-sm">
+            <thead class="bg-secondary-100 text-text-secondary uppercase">
+              <tr>
+                <th class="px-6 py-3 text-left font-medium">ID</th>
+                <th class="px-6 py-3 text-left font-medium">Reporter</th>
+                <th class="px-6 py-3 text-left font-medium">Route</th>
+                <th class="px-6 py-3 text-left font-medium">Date</th>
+                <th class="px-6 py-3 text-left font-medium">Status</th>
+                <th class="px-6 py-3 text-center font-medium">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody class="divide-y divide-border">
+
+              <tr class="hover:bg-secondary-50 transition">
+                <td class="px-6 py-4 font-medium">#1024</td>
+                <td class="px-6 py-4">Anonymous</td>
+                <td class="px-6 py-4">Belmopan → UB</td>
+                <td class="px-6 py-4">2025-11-10</td>
+                <td class="px-6 py-4">
+                  <span class="px-3 py-1 rounded-full text-xs bg-warning-100 text-warning-600">Pending</span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <button class="text-primary hover:underline mx-1">View</button>
+                  <button class="text-success hover:underline mx-1">Resolve</button>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-secondary-50 transition">
+                <td class="px-6 py-4 font-medium">#1025</td>
+                <td class="px-6 py-4">Student A</td>
+                <td class="px-6 py-4">San Ignacio → UB</td>
+                <td class="px-6 py-4">2025-11-11</td>
+                <td class="px-6 py-4">
+                  <span class="px-3 py-1 rounded-full text-xs bg-success-100 text-success-600">Resolved</span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <button class="text-primary hover:underline mx-1">View</button>
+                  <button class="text-warning hover:underline mx-1">Reopen</button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Users -->
+    <div id="users" class="tab-content">
+      <h2 class="text-xl font-semibold mb-4">User Accounts</h2>
+
+      <div class="bg-surface border border-border shadow-civic-lg rounded-lg p-6">
+        <p class="text-text-secondary">List of student accounts will appear here.</p>
+      </div>
+    </div>
+
+    <!-- TAB: Drivers -->
+    <div id="drivers" class="tab-content">
+      <h2 class="text-xl font-semibold mb-4">Drivers</h2>
+
+      <div class="bg-surface border border-border shadow-civic-lg rounded-lg p-6">
+        <p class="text-text-secondary">Driver profiles and complaint counts will appear here.</p>
+      </div>
+    </div>
+
+    <!-- TAB: Reports -->
+    <div id="reports" class="tab-content">
+      <h2 class="text-xl font-semibold mb-4">Reports & Analytics</h2>
+
+      <div class="bg-surface border border-border shadow-civic-lg rounded-lg p-6">
+        <p class="text-text-secondary">Charts and analytics will go here.</p>
+      </div>
+    </div>
+
+    <!-- TAB: Settings -->
+    <div id="settings" class="tab-content">
+      <h2 class="text-xl font-semibold mb-4">Settings</h2>
+
+      <div class="bg-surface border border-border shadow-civic-lg rounded-lg p-6">
+        <p class="text-text-secondary">Admin settings and password options will show here.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Tab Switching Script -->
+  <script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active classes
+        tabs.forEach(b => b.classList.remove('tab-btn-active'));
+        contents.forEach(c => c.classList.remove('tab-active'));
+
+        // Activate new tab
+        btn.classList.add('tab-btn-active');
+        document.getElementById(btn.dataset.tab).classList.add('tab-active');
+      });
+    });
+  </script>
+
+</body>
+</html>

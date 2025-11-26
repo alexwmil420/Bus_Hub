@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submit Complaint - BusWatch</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fbuswatch9491back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Global Header Navigation -->
+    <header class="bg-surface shadow-civic border-b border-border sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="public_complaints_feed.html" class="flex items-center space-x-2">
+                        <svg class="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span class="text-xl font-bold text-text-primary">BusWatch</span>
+                    </a>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="public_complaints_feed.html" class="text-text-secondary hover:text-primary transition-colors">
+                        Public Feed
+                    </a>
+                    <a href="submit_complaint.html" class="text-primary font-medium">
+                        Submit Complaint
+                    </a>
+                    <a href="user_dashboard.html" class="text-text-secondary hover:text-primary transition-colors">
+                        Dashboard
+                    </a>
+                </nav>
+
+                <!-- User Menu -->
+                <div class="flex items-center space-x-4">
+                    <!-- User Profile Dropdown -->
+                    <div class="relative">
+                        <button id="userMenuButton" class="flex items-center space-x-2 text-text-secondary hover:text-primary transition-colors p-2 rounded-lg hover:bg-secondary-50">
+                            <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
+                                <span class="text-sm font-medium text-primary">U</span>
+                            </div>
+                            <span class="hidden sm:block text-sm font-medium">User</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Dropdown Menu -->
+                        <div id="userDropdown" class="hidden absolute right-0 mt-2 w-48 bg-surface rounded-lg shadow-civic-lg border border-border py-1 z-50">
+                            <a href="user_dashboard.html" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 hover:text-primary transition-colors">
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                                </svg>
+                                Dashboard
+                            </a>
+                            <div class="border-t border-border my-1"></div>
+                            <a href="user_login.html" class="block px-4 py-2 text-sm text-error hover:bg-error-100 transition-colors">
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                                </svg>
+                                Sign Out
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobileMenuButton" class="md:hidden p-2 rounded-md text-text-secondary hover:text-primary hover:bg-secondary-100 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-surface border-t border-border">
+            <div class="px-4 py-2 space-y-1">
+                <a href="public_complaints_feed.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors">
+                    Public Feed
+                </a>
+                <a href="submit_complaint.html" class="block px-3 py-2 text-primary bg-primary-50 rounded-md font-medium">
+                    Submit Complaint
+                </a>
+                <a href="user_dashboard.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors">
+                    Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="bg-secondary-50 border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <nav class="flex items-center space-x-2 text-sm">
+                <a href="user_dashboard.html" class="text-text-secondary hover:text-primary transition-colors">
+                    Dashboard
+                </a>
+                <svg class="w-4 h-4 text-text-secondary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-text-primary font-medium">Submit Complaint</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-1 py-6 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Page Header -->
+            <div class="mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl sm:text-3xl font-bold text-text-primary">Submit Bus Service Complaint</h1>
+                        <p class="text-text-secondary mt-1">Report issues to help improve public transportation services</p>
+                    </div>
+                </div>
+
+                <!-- Progress Indicator -->
+                <div class="bg-surface rounded-lg border border-border p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-medium text-text-primary">Form Progress</span>
+                        <span id="progressText" class="text-sm text-text-secondary">0% Complete</span>
+                    </div>
+                    <div class="w-full bg-secondary-200 rounded-full h-2">
+                        <div id="progressBar" class="bg-primary h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auto-save Status -->
+            <div id="autoSaveStatus" class="hidden mb-4 p-3 bg-success-100 border border-success-200 rounded-lg">
+                <div class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-success-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-sm text-success-700 font-medium">Draft saved automatically</span>
+                    <span class="text-xs text-success-600" id="lastSaved">Just now</span>
+                </div>
+            </div>
+
+            <!-- Main Form -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Form Section -->
+                <div class="lg:col-span-2">
+                    <form id="complaintForm" class="space-y-6">
+                        <!-- Bus Route Information -->
+                        <div class="bg-surface rounded-lg shadow-civic border border-border p-6">
+                            <h2 class="text-lg font-semibold text-text-primary mb-4 flex items-center">
+                                <svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V6a2 2 0 012-2h2a2 2 0 012 2v1m-6 0h6m-6 0l-.5 3.5A2 2 0 0010.5 13h3a2 2 0 001.5-1.5L15 8"/>
+                                </svg>
+                                Bus Route Information
+                            </h2>
+                            
+                            <!-- Route Schedule Display -->
+                            <div class="mb-6 p-4 bg-primary-50 border border-primary-200 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <img src="../assets/images/WhatsApp_Image_2025-08-19_at_15.54.19_606b1cc6-1756511785111.jpg" alt="University of Belize Bus Schedule" class="w-full h-auto rounded-md mb-3 max-w-md mx-auto" />
+                                </div>
+                                <div class="text-sm text-primary-700">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <h4 class="font-medium mb-2">Standard Belize Bus Fares (BZD)</h4>
+                                            <ul class="space-y-1 text-xs">
+                                                <li>• Corozal & Ranchito: $20.00</li>
+                                                <li>• Calcutta - Concepcion: $19.00</li>
+                                                <li>• San Pedro - Santa Clara: $18.00</li>
+                                                <li>• Orange Walk - Carmelita: $15.00</li>
+                                                <li>• Biscayne: $11.00</li>
+                                                <li>• Boom: $8.00</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium mb-2">University Route Schedule</h4>
+                                            <ul class="space-y-1 text-xs">
+                                                <li>• Monday: Corozal 4:00 AM → UB 7:30 AM</li>
+                                                <li>• Friday: UB 3:00 PM → Corozal 7:00 PM</li>
+                                                <li>• Route subject to commuter usage</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <!-- Bus Route Dropdown -->
+                                <div>
+                                    <label for="busRoute" class="block text-sm font-medium text-text-primary mb-2">
+                                        Bus Route <span class="text-error">*</span>
+                                    </label>
+                                    <div class="relative">
+                                        <select id="busRoute" name="busRoute" class="form-input pr-10" required>
+                                            <option value>Select bus route</option>
+                                            <option value="Corozal to Belize City" selected>Corozal to Belize City</option>
+                                            <option value="Corozal to Belmopan Campus">Corozal to Belmopan Campus (University)</option>
+                                            <option value="Belize City to Benque/San Ignacio">Belize City to Benque/San Ignacio</option>
+                                            <option value="Northern Highway Express">Northern Highway Express</option>
+                                            <option value="Western Highway Route">Western Highway Route</option>
+                                            <option value="Hummingbird Highway">Hummingbird Highway</option>
+                                        </select>
+                                        <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-text-secondary pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <!-- Bus Stop/Location -->
+                                <div>
+                                    <label for="location" class="block text-sm font-medium text-text-primary mb-2">
+                                        Bus Stop/Location <span class="text-error">*</span>
+                                    </label>
+                                    <input type="text" id="location" name="location" value="Corozal Bus Terminal" class="form-input" placeholder="e.g., Orange Walk Town, Ranchito" required />
+                                    <div class="mt-1 text-xs text-text-secondary">
+                                        Common stops: Corozal Terminal, Ranchito, Orange Walk, Belize City Terminal, San Ignacio
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Incident Details -->
+                        <div class="bg-surface rounded-lg shadow-civic border border-border p-6">
+                            <h2 class="text-lg font-semibold text-text-primary mb-4 flex items-center">
+                                <svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Incident Details
+                            </h2>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                                <!-- Date -->
+                                <div>
+                                    <label for="incidentDate" class="block text-sm font-medium text-text-primary mb-2">
+                                        Incident Date <span class="text-error">*</span>
+                                    </label>
+                                    <input type="date" id="incidentDate" name="incidentDate" value="2025-08-29" class="form-input" required />
+                                </div>
+
+                                <!-- Time -->
+                                <div>
+                                    <label for="incidentTime" class="block text-sm font-medium text-text-primary mb-2">
+                                        Incident Time <span class="text-error">*</span>
+                                    </label>
+                                    <input type="time" id="incidentTime" name="incidentTime" value="14:30" class="form-input" required />
+                                </div>
+                            </div>
+
+                            <!-- Complaint Category -->
+                            <div>
+                                <label class="block text-sm font-medium text-text-primary mb-3">
+                                    Complaint Category <span class="text-error">*</span>
+                                </label>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                    <label class="relative flex items-center p-3 border border-border rounded-lg cursor-pointer hover:bg-secondary-50 transition-colors">
+                                        <input type="radio" name="category" value="overcharging" class="sr-only" required />
+                                        <div class="radio-custom mr-3"></div>
+                                        <div>
+                                            <div class="text-sm font-medium text-text-primary">Overcharging</div>
+                                            <div class="text-xs text-text-secondary">Fare disputes</div>
+                                        </div>
+                                    </label>
+                                    
+                                    <label class="relative flex items-center p-3 border border-border rounded-lg cursor-pointer hover:bg-secondary-50 transition-colors bg-primary-50 border-primary">
+                                        <input type="radio" name="category" value="mechanical" class="sr-only" checked required />
+                                        <div class="radio-custom mr-3"></div>
+                                        <div>
+                                            <div class="text-sm font-medium text-text-primary">Mechanical Issues</div>
+                                            <div class="text-xs text-text-secondary">Breakdowns, AC, etc.</div>
+                                        </div>
+                                    </label>
+                                    
+                                    <label class="relative flex items-center p-3 border border-border rounded-lg cursor-pointer hover:bg-secondary-50 transition-colors">
+                                        <input type="radio" name="category" value="other" class="sr-only" required />
+                                        <div class="radio-custom mr-3"></div>
+                                        <div>
+                                            <div class="text-sm font-medium text-text-primary">Other Issues</div>
+                                            <div class="text-xs text-text-secondary">Service quality</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Complaint Description -->
+                        <div class="bg-surface rounded-lg shadow-civic border border-border p-6">
+                            <h2 class="text-lg font-semibold text-text-primary mb-4 flex items-center">
+                                <svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                                Complaint Description
+                            </h2>
+                            
+                            <div>
+                                <label for="description" class="block text-sm font-medium text-text-primary mb-2">
+                                    Detailed Description <span class="text-error">*</span>
+                                </label>
+                                <textarea id="description" name="description" rows="6" class="form-input resize-none" placeholder="Please provide a detailed description of the issue you experienced. Include specific details such as fare amounts in BZD, bus stops, and how it affected your journey." required maxlength="1000">The bus driver charged me BZD $22.00 instead of the standard BZD $20.00 fare from Ranchito to University of Belize Belmopan Campus. Despite showing the official University bus schedule that clearly states the fare should be $20.00 for Ranchito passengers, the driver insisted on the higher amount. This happened on the Monday 4:00 AM service. Other passengers from Ranchito were also overcharged. When questioned, the driver became defensive and refused to provide a receipt. This is unacceptable for the University of Belize official bus service.</textarea>
+                                
+                                <div class="flex justify-between items-center mt-2">
+                                    <p class="text-xs text-text-secondary">
+                                        Be specific about fares (use BZD currency), locations in Belize, and factual details.
+                                    </p>
+                                    <span id="charCount" class="text-xs text-text-secondary">
+                                        <span id="currentCount">485</span>/1000 characters
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Photo Upload -->
+                        <div class="bg-surface rounded-lg shadow-civic border border-border p-6">
+                            <h2 class="text-lg font-semibold text-text-primary mb-4 flex items-center">
+                                <svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                                Photo Evidence (Optional)
+                            </h2>
+                            
+                            <div class="border-2 border-dashed border-secondary-300 rounded-lg p-6 text-center hover:border-primary transition-colors">
+                                <input type="file" id="photoUpload" name="photos" multiple accept="image/*" class="hidden" />
+                                <label for="photoUpload" class="cursor-pointer">
+                                    <svg class="mx-auto h-12 w-12 text-secondary-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <div class="mt-4">
+                                        <p class="text-sm font-medium text-text-primary">Click to upload photos</p>
+                                        <p class="text-xs text-text-secondary mt-1">PNG, JPG, GIF up to 10MB each (max 5 photos)</p>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <!-- Photo Previews -->
+                            <div id="photoPreview" class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-4 hidden">
+                                <!-- Preview thumbnails will be inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button type="submit" id="submitButton" class="flex-1 btn-primary py-3 text-base font-semibold rounded-lg shadow-civic hover:shadow-civic-md transition-all duration-200 flex items-center justify-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                </svg>
+                                Submit Complaint
+                            </button>
+                            
+                            <button type="button" id="saveDraftButton" class="btn-secondary py-3 px-6 text-base font-medium rounded-lg transition-all duration-200">
+                                Save Draft
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:col-span-1 space-y-6">
+                    <!-- Public Preview -->
+                    <div class="bg-surface rounded-lg shadow-civic border border-border p-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4 flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                            Public Preview
+                        </h3>
+                        
+                        <div class="bg-secondary-50 rounded-lg p-4 border border-secondary-200">
+                            <div class="flex items-start space-x-3 mb-3">
+                                <div class="w-8 h-8 bg-accent-200 rounded-full flex items-center justify-center">
+                                    <span class="text-sm font-medium text-accent-600">BU</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="text-sm font-medium text-text-primary">BelizeUser92</span>
+                                        <span class="text-xs text-text-secondary">• Just now</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2 mt-1">
+                                        <span class="status-badge status-warning">Mechanical Issues</span>
+                                        <span class="text-xs text-text-secondary">Corozal to Belize City</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p class="text-sm text-text-secondary leading-relaxed">
+                                The bus driver charged me BZD $22.00 instead of the standard BZD $20.00 fare from Ranchito to University of Belize Belmopan Campus...
+                            </p>
+                            
+                            <div class="flex items-center justify-between mt-3 pt-3 border-t border-secondary-200">
+                                <div class="flex items-center space-x-4 text-xs text-text-secondary">
+                                    <span class="flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-1.586l-4 4z"/>
+                                        </svg>
+                                        0 comments
+                                    </span>
+                                    <span class="flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                        </svg>
+                                        0 votes
+                                    </span>
+                                </div>
+                                <span class="text-xs text-success-600 font-medium">Pending Review</span>
+                            </div>
+                        </div>
+                        
+                        <p class="text-xs text-text-secondary mt-3">
+                            <svg class="w-4 h-4 inline mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                            </svg>
+                            Your identity remains private. University and transport authorities can see your real name for verification purposes.
+                        </p>
+                    </div>
+
+                    <!-- Help & Guidelines -->
+                    <div class="bg-surface rounded-lg shadow-civic border border-border p-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4 flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Submission Guidelines
+                        </h3>
+                        
+                        <div class="space-y-3 text-sm text-text-secondary">
+                            <div class="flex items-start space-x-2">
+                                <svg class="w-4 h-4 text-success-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Be specific about the issue and location</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <svg class="w-4 h-4 text-success-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Include photos when possible for evidence</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <svg class="w-4 h-4 text-success-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Use respectful language and avoid personal attacks</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <svg class="w-4 h-4 text-success-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Check for similar complaints before submitting</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 pt-4 border-t border-border">
+                            <a href="javascript:void(0)" class="text-primary hover:underline text-sm font-medium">
+                                View full community guidelines →
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="bg-surface rounded-lg shadow-civic border border-border p-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4 flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            Quick Stats
+                        </h3>
+                        
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-text-secondary">Your complaints</span>
+                                <span class="text-sm font-medium text-text-primary">3 submitted</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-text-secondary">Resolved issues</span>
+                                <span class="text-sm font-medium text-success-600">2 resolved</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-text-secondary">Community impact</span>
+                                <span class="text-sm font-medium text-primary">47 votes received</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 pt-4 border-t border-border">
+                            <a href="user_dashboard.html" class="text-primary hover:underline text-sm font-medium">
+                                View your dashboard →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-surface rounded-lg shadow-civic-lg max-w-md w-full p-6">
+            <div class="text-center">
+                <div class="mx-auto w-16 h-16 bg-success-100 rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-success-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-text-primary mb-2">Complaint Submitted Successfully!</h3>
+                <p class="text-text-secondary mb-6">Your complaint has been submitted and will be reviewed by our team. You'll receive updates via email.</p>
+                <div class="flex space-x-3">
+                    <button id="viewComplaintButton" class="flex-1 btn-primary py-2">
+                        View Complaint
+                    </button>
+                    <button id="submitAnotherButton" class="flex-1 btn-secondary py-2">
+                        Submit Another
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Form Functionality -->
+    <script>
+        // Form elements
+        const form = document.getElementById('complaintForm');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const autoSaveStatus = document.getElementById('autoSaveStatus');
+        const lastSaved = document.getElementById('lastSaved');
+        const charCount = document.getElementById('currentCount');
+        const description = document.getElementById('description');
+        const photoUpload = document.getElementById('photoUpload');
+        const photoPreview = document.getElementById('photoPreview');
+        const successModal = document.getElementById('successModal');
+        
+        // User menu functionality
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userDropdown = document.getElementById('userDropdown');
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        // Toggle user dropdown
+        userMenuButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            userDropdown.classList.toggle('hidden');
+        });
+
+        // Toggle mobile menu
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function() {
+            userDropdown.classList.add('hidden');
+        });
+
+        // Character counter
+        description.addEventListener('input', function() {
+            const count = this.value.length;
+            charCount.textContent = count;
+            
+            if (count > 900) {
+                charCount.parentElement.classList.add('text-warning-600');
+            } else if (count > 950) {
+                charCount.parentElement.classList.add('text-error-600');
+            } else {
+                charCount.parentElement.classList.remove('text-warning-600', 'text-error-600');
+            }
+        });
+
+        // Progress tracking
+        function updateProgress() {
+            const requiredFields = ['busRoute', 'location', 'incidentDate', 'incidentTime', 'description'];
+            const categorySelected = document.querySelector('input[name="category"]:checked');
+            
+            let completed = 0;
+            const total = requiredFields.length + 1; // +1 for category
+            
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field && field.value.trim()) {
+                    completed++;
+                }
+            });
+            
+            if (categorySelected) {
+                completed++;
+            }
+            
+            const percentage = Math.round((completed / total) * 100);
+            progressBar.style.width = percentage + '%';
+            progressText.textContent = percentage + '% Complete';
+        }
+
+        // Auto-save functionality
+        let autoSaveTimer;
+        function autoSave() {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(() => {
+                // Simulate auto-save
+                const formData = new FormData(form);
+                localStorage.setItem('complaintDraft', JSON.stringify(Object.fromEntries(formData)));
+                
+                autoSaveStatus.classList.remove('hidden');
+                lastSaved.textContent = 'Just now';
+                
+                setTimeout(() => {
+                    autoSaveStatus.classList.add('hidden');
+                }, 3000);
+            }, 2000);
+        }
+
+        // Add event listeners for progress and auto-save
+        form.addEventListener('input', function() {
+            updateProgress();
+            autoSave();
+        });
+
+        form.addEventListener('change', function() {
+            updateProgress();
+            autoSave();
+        });
+
+        // Radio button styling
+        document.querySelectorAll('input[name="category"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Remove active styling from all labels
+                document.querySelectorAll('input[name="category"]').forEach(r => {
+                    r.closest('label').classList.remove('bg-primary-50', 'border-primary');
+                });
+                
+                // Add active styling to selected label
+                if (this.checked) {
+                    this.closest('label').classList.add('bg-primary-50', 'border-primary');
+                }
+            });
+        });
+
+        // Photo upload handling
+        photoUpload.addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            photoPreview.innerHTML = '';
+            
+            if (files.length > 0) {
+                photoPreview.classList.remove('hidden');
+                
+                files.forEach((file, index) => {
+                    if (index < 5) { // Limit to 5 photos
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const preview = document.createElement('div');
+                            preview.className = 'relative group';
+                            preview.innerHTML = `
+                                <img src="${e.target.result}" alt="Preview ${index + 1}" class="w-full h-24 object-cover rounded-lg border border-border">
+                                <button type="button" class="absolute top-1 right-1 bg-error text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity" onclick="this.parentElement.remove()">
+                                    ×
+                                </button>
+                            `;
+                            photoPreview.appendChild(preview);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            } else {
+                photoPreview.classList.add('hidden');
+            }
+        });
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate required fields
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim() && field.type !== 'radio') {
+                    isValid = false;
+                    field.classList.add('border-error-500');
+                } else if (field.type === 'radio') {
+                    const radioGroup = form.querySelectorAll(`input[name="${field.name}"]`);
+                    const isChecked = Array.from(radioGroup).some(radio => radio.checked);
+                    if (!isChecked) {
+                        isValid = false;
+                    }
+                } else {
+                    field.classList.remove('border-error-500');
+                }
+            });
+            
+            if (isValid) {
+                // Show loading state
+                const submitButton = document.getElementById('submitButton');
+                const originalText = submitButton.innerHTML;
+                submitButton.innerHTML = `
+                    <svg class="animate-spin w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Submitting...
+                `;
+                submitButton.disabled = true;
+                
+                // Simulate submission
+                setTimeout(() => {
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                    
+                    // Clear draft
+                    localStorage.removeItem('complaintDraft');
+                    
+                    // Show success modal
+                    successModal.classList.remove('hidden');
+                }, 2000);
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        });
+
+        // Success modal actions
+        document.getElementById('viewComplaintButton').addEventListener('click', function() {
+            window.location.href = 'complaint_details.html';
+        });
+
+        document.getElementById('submitAnotherButton').addEventListener('click', function() {
+            successModal.classList.add('hidden');
+            form.reset();
+            updateProgress();
+            photoPreview.classList.add('hidden');
+            photoPreview.innerHTML = '';
+        });
+
+        // Close modal when clicking outside
+        successModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+            }
+        });
+
+        // Save draft button
+        document.getElementById('saveDraftButton').addEventListener('click', function() {
+            const formData = new FormData(form);
+            localStorage.setItem('complaintDraft', JSON.stringify(Object.fromEntries(formData)));
+            
+            autoSaveStatus.classList.remove('hidden');
+            lastSaved.textContent = 'Just now';
+            
+            setTimeout(() => {
+                autoSaveStatus.classList.add('hidden');
+            }, 3000);
+        });
+
+        // Load draft on page load
+        window.addEventListener('load', function() {
+            const draft = localStorage.getItem('complaintDraft');
+            if (draft) {
+                const draftData = JSON.parse(draft);
+                Object.keys(draftData).forEach(key => {
+                    const field = document.getElementById(key) || document.querySelector(`input[name="${key}"]`);
+                    if (field) {
+                        if (field.type === 'radio') {
+                            const radio = document.querySelector(`input[name="${key}"][value="${draftData[key]}"]`);
+                            if (radio) {
+                                radio.checked = true;
+                                radio.closest('label').classList.add('bg-primary-50', 'border-primary');
+                            }
+                        } else {
+                            field.value = draftData[key];
+                        }
+                    }
+                });
+                updateProgress();
+            }
+        });
+
+        // Initialize progress
+        updateProgress();
+
+        // Custom radio button styling
+        const style = document.createElement('style');
+        style.textContent = `
+            .radio-custom {
+                width: 16px;
+                height: 16px;
+                border: 2px solid #CBD5E1;
+                border-radius: 50%;
+                position: relative;
+                flex-shrink: 0;
+            }
+            
+            input[type="radio"]:checked + .radio-custom {
+                border-color: #2563EB;
+                background-color: #2563EB;
+            }
+            
+            input[type="radio"]:checked + .radio-custom::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background-color: white;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

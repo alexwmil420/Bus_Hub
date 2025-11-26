@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Driver Dashboard - BusHub</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-background min-h-screen text-text-primary">
+
+    <!-- Header -->
+    <header class="bg-surface shadow-civic border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-primary">Driver Dashboard</h1>
+
+            <nav class="flex items-center space-x-4">
+                <a href="driver_dashboard.html" class="text-text-secondary hover:text-primary">Dashboard</a>
+                <a href="user_login.html" class="text-text-secondary hover:text-error">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Driver Overview -->
+        <div class="bg-surface rounded-lg shadow-civic border border-border p-6 mb-8">
+            <div class="flex items-start space-x-4">
+                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center">
+                    <svg class="w-10 h-10 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold mb-1">Driver #042 • John Martinez</h2>
+                    <p class="text-text-secondary">Assigned Route: <span class="font-medium text-text-primary">Route 42 — Downtown Express</span></p>
+                    <p class="text-text-secondary">Shift: 6:00 AM – 2:00 PM</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Complaints Header -->
+        <h2 class="text-lg font-semibold mb-4">Complaints About Your Route</h2>
+
+        <!-- Complaints Table -->
+        <div class="bg-surface shadow-civic-lg border border-border rounded-lg">
+            <div class="flex justify-between items-center px-6 py-4 border-b border-border">
+                <h3 class="text-md font-medium">Recent Complaints</h3>
+
+                <input type="text" placeholder="Search..." class="form-input w-56">
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-border text-sm">
+                    <thead class="bg-secondary-100 text-text-secondary uppercase">
+                        <tr>
+                            <th class="px-6 py-3 text-left font-medium">Complaint ID</th>
+                            <th class="px-6 py-3 text-left font-medium">Category</th>
+                            <th class="px-6 py-3 text-left font-medium">Date</th>
+                            <th class="px-6 py-3 text-left font-medium">Status</th>
+                            <th class="px-6 py-3 text-center font-medium">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="divide-y divide-border">
+
+                        <!-- Complaint 1 -->
+                        <tr class="hover:bg-secondary-50 transition">
+                            <td class="px-6 py-4 font-medium">#1024</td>
+                            <td class="px-6 py-4">Overcharging</td>
+                            <td class="px-6 py-4">2025-08-28</td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 rounded-full text-xs font-medium bg-warning-100 text-warning-600">
+                                    Pending
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <a href="complaint_details.html" class="text-primary hover:underline mx-2">View</a>
+                                <button class="text-success hover:underline mx-2">Mark Resolved</button>
+                            </td>
+                        </tr>
+
+                        <!-- Complaint 2 -->
+                        <tr class="hover:bg-secondary-50 transition">
+                            <td class="px-6 py-4 font-medium">#1008</td>
+                            <td class="px-6 py-4">Late Arrival</td>
+                            <td class="px-6 py-4">2025-08-21</td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 rounded-full text-xs font-medium bg-warning-100 text-warning-600">
+                                    Under Review
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <a href="complaint_details.html" class="text-primary hover:underline mx-2">View</a>
+                            </td>
+                        </tr>
+
+                        <!-- Complaint 3 -->
+                        <tr class="hover:bg-secondary-50 transition">
+                            <td class="px-6 py-4 font-medium">#998</td>
+                            <td class="px-6 py-4">Unsafe Driving</td>
+                            <td class="px-6 py-4">2025-08-15</td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 rounded-full text-xs font-medium bg-success-100 text-success-600">
+                                    Resolved
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <a href="complaint_details.html" class="text-primary hover:underline mx-2">View</a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-xs text-text-secondary mt-8 py-4">
+            © 2025 BusHub | Driver Portal
+        </footer>
+
+    </main>
+
+</body>
+</html>

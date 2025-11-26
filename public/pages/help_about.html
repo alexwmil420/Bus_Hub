@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help & About - BusHub</title>
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body class="bg-background min-h-screen text-text-primary">
+  <!-- Header -->
+  <header class="bg-surface shadow-civic border-b border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-2">
+        <svg class="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <span class="text-xl font-bold text-primary">BusHub</span>
+      </a>
+      <nav class="flex items-center space-x-6">
+        <a href="public_complaints_feed.html" class="text-text-secondary hover:text-primary">Public Feed</a>
+        <a href="submit_complaint.html" class="text-text-secondary hover:text-primary">Submit Complaint</a>
+        <a href="help_about.html" class="text-primary font-semibold">Help</a>
+        <a href="user_login.html" class="text-text-secondary hover:text-primary">Sign In</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <!-- About Section -->
+    <section class="bg-surface rounded-lg shadow-civic-lg border border-border p-8">
+      <h1 class="text-2xl font-bold mb-4">About BusHub</h1>
+      <p class="text-text-secondary mb-4">
+        <strong>BusHub</strong> is the University of Belize’s official Bus Service Reporting and Feedback System.
+        It allows students, bus drivers, and administrators to report, view, and respond to issues affecting daily bus operations.
+        Developed as part of the University’s commitment to safety and service improvement, BusHub bridges the communication gap between commuters and the Transit Authority.
+      </p>
+      <ul class="list-disc list-inside text-text-secondary space-y-2">
+        <li>✅ Report delays, unsafe driving, or overcrowding</li>
+        <li>✅ View public complaints and responses</li>
+        <li>✅ Track resolution status in real time</li>
+        <li>✅ Access insights via admin dashboards</li>
+      </ul>
+    </section>
+
+    <!-- Help Section -->
+    <section class="bg-surface rounded-lg shadow-civic-lg border border-border p-8">
+      <h2 class="text-xl font-semibold mb-4">How to Use BusHub</h2>
+      <div class="space-y-6">
+        <div>
+          <h3 class="font-semibold text-primary">1. For Students</h3>
+          <p class="text-text-secondary">
+            Create an account using your UB email address. Once logged in, you can submit a complaint through the
+            <em>Submit Complaint</em> form, attach a description, and optionally include media. You can later track its status in your dashboard.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-primary">2. For Bus Drivers</h3>
+          <p class="text-text-secondary">
+            View feedback relevant to your assigned route. Communicate with administrators regarding reported incidents and confirm resolution steps.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-primary">3. For Administrators</h3>
+          <p class="text-text-secondary">
+            Log in to the <strong>Admin Dashboard</strong> to review and manage incoming reports.
+            Update statuses (Pending, In Review, Resolved) and generate summary reports for the Transit Department.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="bg-surface rounded-lg shadow-civic-lg border border-border p-8">
+      <h2 class="text-xl font-semibold mb-4">Need Additional Help?</h2>
+      <p class="text-text-secondary mb-4">
+        If you’re experiencing technical difficulties or have questions about how to use the platform,
+        you can contact the BusHub support team:
+      </p>
+      <ul class="text-text-secondary space-y-1">
+        <li>📧 Email: <a href="mailto:help@bushub.ub.bz" class="text-primary hover:underline">help@bushub.ub.bz</a></li>
+        <li>📞 Phone: (501) 822-1234</li>
+        <li>🏫 Office: UB Central Campus, IT Department</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-xs text-text-secondary mt-12 py-6">
+    © 2025 BusHub | Developed for the University of Belize Transit Service
+  </footer>
+</body>
+</html>

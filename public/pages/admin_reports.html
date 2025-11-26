@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Reports – BusHub</title>
+
+  <link rel="stylesheet" href="../css/main.css" />
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-background min-h-screen text-text-primary">
+
+  <!-- Header -->
+  <header class="bg-surface shadow-civic border-b border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-primary">BusHub Admin Reports</h1>
+
+      <nav class="flex items-center space-x-4">
+        <a href="admin_dashboard.html" class="text-text-secondary hover:text-primary">Dashboard</a>
+        <a href="admin_reports.html" class="text-primary font-semibold">Reports</a>
+        <a href="user_login.html" class="text-text-secondary hover:text-error">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <div class="bg-surface p-6 rounded-lg shadow-civic border border-border">
+        <p class="text-sm text-text-secondary">Total Complaints</p>
+        <p class="text-3xl font-bold text-primary mt-2">124</p>
+      </div>
+
+      <div class="bg-surface p-6 rounded-lg shadow-civic border border-border">
+        <p class="text-sm text-text-secondary">Pending</p>
+        <p class="text-3xl font-bold text-warning mt-2">45</p>
+      </div>
+
+      <div class="bg-surface p-6 rounded-lg shadow-civic border border-border">
+        <p class="text-sm text-text-secondary">Resolved</p>
+        <p class="text-3xl font-bold text-success mt-2">63</p>
+      </div>
+
+      <div class="bg-surface p-6 rounded-lg shadow-civic border border-border">
+        <p class="text-sm text-text-secondary">In Review</p>
+        <p class="text-3xl font-bold text-accent mt-2">16</p>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+
+      <!-- Complaints by Status Pie Chart -->
+      <div class="bg-surface p-6 rounded-lg shadow-civic border border-border">
+        <h2 class="text-lg font-semibold mb-4">Complaints by Status</h2>
+        <canvas id="statusChart" height="200"></canvas>
+      </div>
+
+      <!-- Complaints per Route Bar Chart -->
+      <div class="bg-surface p-6 rounded-lg shadow-civic border border-border">
+        <h2 class="text-lg font-semibold mb-4">Complaints per Route</h2>
+        <canvas id="routeChart" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- Complaints Table -->
+    <div class="bg-surface border border-border shadow-civic-lg rounded-lg">
+      <div class="px-6 py-4 border-b border-border flex justify-between items-center">
+        <h2 class="text-lg font-semibold">All Complaints</h2>
+
+        <input
+          type="text"
+          placeholder="Search..."
+          class="form-input w-56"
+        />
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-border text-sm">
+          <thead class="bg-secondary-100 text-text-secondary uppercase">
+            <tr>
+              <th class="px-6 py-3 text-left font-medium">ID</th>
+              <th class="px-6 py-3 text-left font-medium">Route</th>
+              <th class="px-6 py-3 text-left font-medium">Date</th>
+              <th class="px-6 py-3 text-left font-medium">Status</th>
+              <th class="px-6 py-3 text-left font-medium">Category</th>
+            </tr>
+          </thead>
+
+          <tbody class="divide-y divide-border">
+
+            <!-- EXAMPLE ROWS -->
+            <tr class="hover:bg-secondary-50">
+              <td class="px-6 py-4 font-medium">#1024</td>
+              <td class="px-6 py-4">Belmopan → UB</td>
+              <td class="px-6 py-4">2025-11-10</td>
+              <td class="px-6 py-4">
+                <span class="px-3 py-1 text-xs rounded-full bg-warning-100 text-warning-600">Pending</span>
+              </td>
+              <td class="px-6 py-4">Overcharging</td>
+            </tr>
+
+            <tr class="hover:bg-secondary-50">
+              <td class="px-6 py-4 font-medium">#1011</td>
+              <td class="px-6 py-4">San Ignacio → Belmopan</td>
+              <td class="px-6 py-4">2025-11-09</td>
+              <td class="px-6 py-4">
+                <span class="px-3 py-1 text-xs rounded-full bg-success-100 text-success-600">Resolved</span>
+              </td>
+              <td class="px-6 py-4">Late Arrival</td>
+            </tr>
+
+            <tr class="hover:bg-secondary-50">
+              <td class="px-6 py-4 font-medium">#1002</td>
+              <td class="px-6 py-4">Dangriga → UB</td>
+              <td class="px-6 py-4">2025-11-05</td>
+              <td class="px-6 py-4">
+                <span class="px-3 py-1 text-xs rounded-full bg-accent-100 text-accent-600">In Review</span>
+              </td>
+              <td class="px-6 py-4">Unsafe Driving</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center text-xs text-text-secondary mt-8 py-4">
+    © 2025 BusHub | University of Belize Transit Feedback System
+  </footer>
+
+  <!-- Chart Scripts -->
+  <script>
+    // Complaints by Status
+    new Chart(document.getElementById("statusChart"), {
+      type: "pie",
+      data: {
+        labels: ["Pending", "Resolved", "In Review"],
+        datasets: [
+          {
+            data: [45, 63, 16],
+            backgroundColor: ["#F59E0B", "#10B981", "#3B82F6"],
+          },
+        ],
+      },
+    });
+
+    // Complaints per Route
+    new Chart(document.getElementById("routeChart"), {
+      type: "bar",
+      data: {
+        labels: ["Route 1", "Route 2", "Route 3", "Route 4"],
+        datasets: [
+          {
+            label: "Complaints",
+            data: [12, 31, 8, 20],
+            backgroundColor: "#2563EB",
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  </script>
+
+</body>
+</html>

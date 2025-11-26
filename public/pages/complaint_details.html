@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Complaint Details - BusHub</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fbuswatch9491back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Global Header Navigation -->
+    <header class="bg-surface shadow-civic border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="public_complaints_feed.html" class="flex items-center space-x-2">
+                        <svg class="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span class="text-xl font-bold text-text-primary">BusHub</span>
+                    </a>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="public_complaints_feed.html" class="text-text-secondary hover:text-primary transition-colors">
+                        Public Feed
+                    </a>
+                    <a href="submit_complaint.html" class="text-text-secondary hover:text-primary transition-colors">
+                        Submit Complaint
+                    </a>
+                    <a href="user_login.html" class="text-text-secondary hover:text-primary transition-colors">
+                        Sign In
+                    </a>
+                    <a href="javascript:void(0)" class="text-text-secondary hover:text-primary transition-colors">
+                        Help
+                    </a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden p-2 rounded-md text-text-secondary hover:text-primary hover:bg-secondary-100 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="bg-secondary-50 border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <nav class="flex items-center space-x-2 text-sm">
+                <a href="public_complaints_feed.html" class="text-text-secondary hover:text-primary transition-colors">
+                    Public Complaints
+                </a>
+                <svg class="w-4 h-4 text-text-secondary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+                <a href="javascript:void(0)" class="text-text-secondary hover:text-primary transition-colors">
+                    Route 42
+                </a>
+                <svg class="w-4 h-4 text-text-secondary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-text-primary font-medium">Complaint Details</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Mobile Back Button & Actions -->
+    <div class="lg:hidden bg-surface border-b border-border px-4 py-3">
+        <div class="flex items-center justify-between">
+            <button onclick="history.back()" class="flex items-center space-x-2 text-text-secondary hover:text-primary transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+                <span class="font-medium">Back</span>
+            </button>
+            <button class="p-2 text-text-secondary hover:text-primary hover:bg-secondary-100 rounded-lg transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+            <!-- Main Content Column -->
+            <div class="lg:col-span-2">
+                <!-- Complaint Header -->
+                <div class="bg-surface rounded-lg shadow-civic border border-border p-6 mb-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-text-primary">CommutingCitizen47</h3>
+                                <p class="text-sm text-text-secondary">Submitted on August 28, 2025</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="status-badge status-warning">Under Review</span>
+                            <button class="hidden lg:block p-2 text-text-secondary hover:text-primary hover:bg-secondary-100 rounded-lg transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Route Badge -->
+                    <div class="mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary text-white">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
+                            </svg>
+                            Route 42 - Downtown Express
+                        </span>
+                    </div>
+
+                    <!-- Incident Details -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-secondary-50 rounded-lg p-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <svg class="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                                <span class="text-sm font-medium text-text-secondary">Incident Date</span>
+                            </div>
+                            <p class="text-text-primary font-semibold">August 27, 2025</p>
+                            <p class="text-sm text-text-secondary">8:15 AM</p>
+                        </div>
+                        <div class="bg-secondary-50 rounded-lg p-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <svg class="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <span class="text-sm font-medium text-text-secondary">Location</span>
+                            </div>
+                            <p class="text-text-primary font-semibold">Main St & 5th Ave</p>
+                            <p class="text-sm text-text-secondary">Stop #4287</p>
+                        </div>
+                        <div class="bg-secondary-50 rounded-lg p-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <svg class="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                                </svg>
+                                <span class="text-sm font-medium text-text-secondary">Category</span>
+                            </div>
+                            <p class="text-text-primary font-semibold">Overcharging</p>
+                            <p class="text-sm text-text-secondary">Fare Issue</p>
+                        </div>
+                    </div>
+
+                    <!-- Complaint Title -->
+                    <h1 class="text-xl font-bold text-text-primary mb-4">
+                        Driver charged $3.50 instead of standard $2.25 fare
+                    </h1>
+                </div>
+
+                <!-- Complaint Description -->
+                <div class="bg-surface rounded-lg shadow-civic border border-border p-6 mb-6">
+                    <h2 class="text-lg font-semibold text-text-primary mb-4">Complaint Description</h2>
+                    <div class="prose prose-slate max-w-none">
+                        <p class="text-text-primary leading-relaxed mb-4">
+                            This morning I boarded Route 42 at the Main St & 5th Ave stop as I do every weekday for my commute to work. 
+                            When I went to pay my fare, the driver told me it would be $3.50. I questioned this as the standard fare 
+                            for this route has always been $2.25, which is clearly posted on the fare schedule at the bus stop.
+                        </p>
+                        <p class="text-text-primary leading-relaxed mb-4">
+                            The driver insisted that there was a "peak hour surcharge" that I had never heard of before. I asked to 
+                            see documentation of this surcharge, but he became defensive and said I could either pay the $3.50 or 
+                            get off the bus. Since I needed to get to work on time, I reluctantly paid the higher fare.
+                        </p>
+                        <p class="text-text-primary leading-relaxed">
+                            I've been riding this route for over two years and have never encountered this issue before. I believe 
+                            this driver may be pocketing the extra money, as there was no receipt provided and the fare box didn't 
+                            seem to register the full amount. This needs to be investigated immediately.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Photo Gallery -->
+                <div class="bg-surface rounded-lg shadow-civic border border-border p-6 mb-6">
+                    <h2 class="text-lg font-semibold text-text-primary mb-4">Evidence Photos</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="relative group cursor-pointer" onclick="openPhotoModal(0)">
+                            <div class="aspect-w-16 aspect-h-12 bg-secondary-100 rounded-lg overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Bus fare schedule posted at stop" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy" onerror="this.src='https://images.pexels.com/photos/1756957/pexels-photo-1756957.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
+                            </div>
+                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-200 rounded-lg flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                                </svg>
+                            </div>
+                            <p class="mt-2 text-sm text-text-secondary">Fare schedule showing $2.25 standard fare</p>
+                        </div>
+                        <div class="relative group cursor-pointer" onclick="openPhotoModal(1)">
+                            <div class="aspect-w-16 aspect-h-12 bg-secondary-100 rounded-lg overflow-hidden">
+                                <img src="https://images.pixabay.com/photos/2016/11/29/05/07/bus-1867893_1280.jpg" alt="Bus number and route information" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            </div>
+                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-200 rounded-lg flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                                </svg>
+                            </div>
+                            <p class="mt-2 text-sm text-text-secondary">Route 42 bus identification</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Interaction -->
+                <div class="bg-surface rounded-lg shadow-civic border border-border p-6 mb-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-lg font-semibold text-text-primary">Community Response</h2>
+                        <div class="flex items-center space-x-4">
+                            <!-- Voting Buttons -->
+                            <div class="flex items-center space-x-2">
+                                <button class="flex items-center space-x-1 px-3 py-2 bg-success-100 text-success-600 rounded-lg hover:bg-success-200 transition-colors">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L10 4.414 4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="font-medium">47</span>
+                                </button>
+                                <button class="flex items-center space-x-1 px-3 py-2 bg-secondary-100 text-text-secondary rounded-lg hover:bg-secondary-200 transition-colors">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L10 15.586l5.293-5.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="font-medium">3</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comments Section -->
+                    <div class="space-y-6">
+                        <!-- Comment 1 -->
+                        <div class="border-l-4 border-primary-100 pl-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 bg-accent-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-1">
+                                        <span class="font-medium text-text-primary">TransitWatcher23</span>
+                                        <span class="text-sm text-text-secondary">2 hours ago</span>
+                                    </div>
+                                    <p class="text-text-primary leading-relaxed mb-2">
+                                        This happened to me last week on the same route! The driver claimed there was a "fuel surcharge" 
+                                        and charged me an extra $1.25. I reported it but haven't heard back yet.
+                                    </p>
+                                    <div class="flex items-center space-x-4">
+                                        <button class="text-sm text-text-secondary hover:text-primary transition-colors">Reply</button>
+                                        <button class="flex items-center space-x-1 text-sm text-text-secondary hover:text-success-600 transition-colors">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
+                                            </svg>
+                                            <span>12</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Comment 2 -->
+                        <div class="border-l-4 border-primary-100 pl-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 bg-secondary-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-secondary-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-1">
+                                        <span class="font-medium text-text-primary">DailyCommuter89</span>
+                                        <span class="text-sm text-text-secondary">4 hours ago</span>
+                                    </div>
+                                    <p class="text-text-primary leading-relaxed mb-2">
+                                        I've contacted the transit authority about similar issues. They said to always ask for a receipt 
+                                        and report the bus number immediately. Keep documentation of everything!
+                                    </p>
+                                    <div class="flex items-center space-x-4">
+                                        <button class="text-sm text-text-secondary hover:text-primary transition-colors">Reply</button>
+                                        <button class="flex items-center space-x-1 text-sm text-text-secondary hover:text-success-600 transition-colors">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
+                                            </svg>
+                                            <span>8</span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Nested Reply -->
+                                    <div class="mt-4 ml-6 border-l-2 border-secondary-200 pl-4">
+                                        <div class="flex items-start space-x-3">
+                                            <div class="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                                <svg class="w-3 h-3 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                                                </svg>
+                                            </div>
+                                            <div class="flex-1">
+                                                <div class="flex items-center space-x-2 mb-1">
+                                                    <span class="font-medium text-text-primary text-sm">CommutingCitizen47</span>
+                                                    <span class="text-xs text-text-secondary">3 hours ago</span>
+                                                    <span class="text-xs bg-primary-100 text-primary px-2 py-0.5 rounded">OP</span>
+                                                </div>
+                                                <p class="text-sm text-text-primary leading-relaxed">
+                                                    Thanks for the advice! I'll make sure to ask for receipts going forward. 
+                                                    Do you know the best way to contact the transit authority directly?
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add Comment Form -->
+                        <div class="border-t border-border pt-6">
+                            <h3 class="font-medium text-text-primary mb-4">Add Your Comment</h3>
+                            <form class="space-y-4">
+                                <div>
+                                    <textarea id="commentText" rows="4" class="form-input resize-none" placeholder="Share your experience or advice..." maxlength="500"></textarea>
+                                    <div class="flex justify-between items-center mt-2">
+                                        <p class="text-xs text-text-secondary">
+                                            Comments are posted anonymously to protect your privacy
+                                        </p>
+                                        <span id="charCount" class="text-xs text-text-secondary">0/500</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end">
+                                    <button type="submit" class="btn-primary">
+                                        Post Comment
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="lg:col-span-1 mt-6 lg:mt-0">
+                <!-- Status Timeline -->
+                <div class="bg-surface rounded-lg shadow-civic border border-border p-6 mb-6">
+                    <h3 class="font-semibold text-text-primary mb-4">Complaint Status</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-success-500 rounded-full mt-2 flex-shrink-0"></div>
+                            <div>
+                                <p class="font-medium text-text-primary">Submitted</p>
+                                <p class="text-sm text-text-secondary">August 28, 2025 at 9:32 AM</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-warning-500 rounded-full mt-2 flex-shrink-0"></div>
+                            <div>
+                                <p class="font-medium text-text-primary">Under Review</p>
+                                <p class="text-sm text-text-secondary">August 28, 2025 at 2:15 PM</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-secondary-300 rounded-full mt-2 flex-shrink-0"></div>
+                            <div>
+                                <p class="font-medium text-text-secondary">Investigation</p>
+                                <p class="text-sm text-text-secondary">Pending</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-secondary-300 rounded-full mt-2 flex-shrink-0"></div>
+                            <div>
+                                <p class="font-medium text-text-secondary">Resolved</p>
+                                <p class="text-sm text-text-secondary">Pending</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related Complaints -->
+                <div class="bg-surface rounded-lg shadow-civic border border-border p-6 mb-6">
+                    <h3 class="font-semibold text-text-primary mb-4">Related Complaints</h3>
+                    <div class="space-y-4">
+                        <a href="javascript:void(0)" class="block p-3 bg-secondary-50 rounded-lg hover:bg-secondary-100 transition-colors">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <p class="font-medium text-text-primary text-sm mb-1">Route 42 - Fare Discrepancy</p>
+                                    <p class="text-xs text-text-secondary mb-2">Driver charged extra without explanation</p>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="text-xs text-text-secondary">3 days ago</span>
+                                        <span class="text-xs text-success-600">• 23 votes</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="javascript:void(0)" class="block p-3 bg-secondary-50 rounded-lg hover:bg-secondary-100 transition-colors">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <p class="font-medium text-text-primary text-sm mb-1">Route 42 - No Receipt Given</p>
+                                    <p class="text-xs text-text-secondary mb-2">Driver refused to provide fare receipt</p>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="text-xs text-text-secondary">1 week ago</span>
+                                        <span class="text-xs text-success-600">• 15 votes</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <a href="public_complaints_feed.html" class="block mt-4 text-sm text-primary hover:underline">
+                        View all Route 42 complaints →
+                    </a>
+                </div>
+
+                <!-- Share Options -->
+                <div class="bg-surface rounded-lg shadow-civic border border-border p-6">
+                    <h3 class="font-semibold text-text-primary mb-4">Share This Complaint</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button class="flex items-center justify-center space-x-2 p-3 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                            <span class="text-sm font-medium">Twitter</span>
+                        </button>
+                        <button class="flex items-center justify-center space-x-2 p-3 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                            <span class="text-sm font-medium">Facebook</span>
+                        </button>
+                        <button class="flex items-center justify-center space-x-2 p-3 bg-secondary-50 text-text-secondary rounded-lg hover:bg-secondary-100 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                            </svg>
+                            <span class="text-sm font-medium">Copy Link</span>
+                        </button>
+                        <button class="flex items-center justify-center space-x-2 p-3 bg-secondary-50 text-text-secondary rounded-lg hover:bg-secondary-100 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <span class="text-sm font-medium">Email</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Photo Modal -->
+    <div id="photoModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center p-4">
+        <div class="relative max-w-4xl max-h-full">
+            <button onclick="closePhotoModal()" class="absolute top-4 right-4 text-white hover:text-gray-300 z-10">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+            <img id="modalImage" src alt class="max-w-full max-h-full object-contain rounded-lg" />
+            <div class="absolute bottom-4 left-4 right-4 text-white text-center">
+                <p id="modalCaption" class="text-sm bg-black bg-opacity-50 rounded px-3 py-2"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-border mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center">
+                <p class="text-sm text-text-secondary">
+                    © 2025 BusHub. All Rights Reserved. | Helping improve public transportation since 2024
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Character count for comment textarea
+        document.getElementById('commentText').addEventListener('input', function() {
+            const charCount = this.value.length;
+            document.getElementById('charCount').textContent = `${charCount}/500`;
+            
+            if (charCount > 450) {
+                document.getElementById('charCount').classList.add('text-warning-600');
+            } else {
+                document.getElementById('charCount').classList.remove('text-warning-600');
+            }
+        });
+
+        // Photo modal functionality
+        const photos = [
+            {
+                src: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                caption: "Fare schedule showing $2.25 standard fare"
+            },
+            {
+                src: "https://images.pixabay.com/photos/2016/11/29/05/07/bus-1867893_1280.jpg",
+                caption: "Route 42 bus identification"
+            }
+        ];
+
+        function openPhotoModal(index) {
+            const modal = document.getElementById('photoModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+            
+            modalImage.src = photos[index].src;
+            modalCaption.textContent = photos[index].caption;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePhotoModal() {
+            const modal = document.getElementById('photoModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePhotoModal();
+            }
+        });
+
+        // Close modal on background click
+        document.getElementById('photoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePhotoModal();
+            }
+        });
+
+        // Copy link functionality
+        document.querySelector('button:has(svg path[d*="M8 16H6"])').addEventListener('click', function() {
+            navigator.clipboard.writeText(window.location.href).then(function() {
+                // Show temporary success message
+                const button = this;
+                const originalText = button.querySelector('span').textContent;
+                button.querySelector('span').textContent = 'Copied!';
+                setTimeout(() => {
+                    button.querySelector('span').textContent = originalText;
+                }, 2000);
+            }.bind(this));
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const textarea = document.getElementById('commentText');
+            
+            if (textarea.value.trim()) {
+                // Simulate comment submission
+                alert('Comment posted successfully!');
+                textarea.value = '';
+                document.getElementById('charCount').textContent = '0/500';
+            }
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
