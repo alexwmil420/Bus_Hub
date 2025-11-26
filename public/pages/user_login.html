@@ -1,156 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Login - BusHub</title>
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-background min-h-screen">
-    <!-- Global Header Navigation -->
-    <header class="bg-surface shadow-civic border-b border-border">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <a href="public_complaints_feed.html" class="flex items-center space-x-2">
-                        <svg class="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                        </svg>
-                        <span class="text-xl font-bold text-text-primary">BusHub</span>
-                    </a>
-                </div>
-                <nav class="hidden md:flex items-center space-x-8">
-                    <a href="public_complaints_feed.html" class="text-text-secondary hover:text-primary transition-colors">Public Feed</a>
-                    <a href="submit_complaint.html" class="text-text-secondary hover:text-primary transition-colors">Submit Complaint</a>
-                    <a href="user_registration.html" class="text-text-secondary hover:text-primary transition-colors">Register</a>
-                    <a href="javascript:void(0)" class="text-text-secondary hover:text-primary transition-colors">Help</a>
-                </nav>
-                <button class="md:hidden p-2 rounded-md text-text-secondary hover:text-primary hover:bg-secondary-100 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
+<body class="bg-background min-h-screen flex items-center justify-center">
+
+    <div class="max-w-md w-full bg-surface rounded-lg shadow-civic-lg border border-border p-6 sm:p-8">
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-bold text-text-primary">Sign In to BusHub</h1>
+            <p class="text-text-secondary mt-2">Access your account to report bus issues and manage complaints</p>
+        </div>
+
+        <!-- Login Error -->
+        <div id="loginError" class="hidden bg-error-100 text-error-700 p-3 rounded mb-4 text-sm">
+            <span id="loginErrorMessage"></span>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" class="space-y-6">
+            <div>
+                <label for="email" class="block text-sm font-medium text-text-primary mb-2">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your UB email" class="form-input w-full" required>
             </div>
-        </div>
-    </header>
 
-    <!-- Breadcrumb Navigation -->
-    <div class="bg-secondary-50 border-b border-border">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <nav class="flex items-center space-x-2 text-sm">
-                <a href="public_complaints_feed.html" class="text-text-secondary hover:text-primary transition-colors">Home</a>
-                <svg class="w-4 h-4 text-text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-                </svg>
-                <span class="text-text-primary font-medium">Login</span>
-            </nav>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <main class="flex-1 py-8 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md mx-auto">
-            <div class="bg-surface rounded-lg shadow-civic-lg border border-border p-6 sm:p-8">
-                <div class="text-center mb-8">
-                    <div class="mx-auto w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-4">
-                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
-                        </svg>
-                    </div>
-                    <h1 class="text-2xl font-bold text-text-primary mb-2">Welcome Back</h1>
-                    <p class="text-text-secondary">Sign in to your BusHub account to submit and track complaints</p>
-                </div>
-
-                <!-- Login Form -->
-                <form id="loginForm" class="space-y-6">
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-text-primary mb-2">
-                            Email Address <span class="text-error">*</span>
-                        </label>
-                        <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email address" required autocomplete="email" />
-                    </div>
-                    <div>
-                        <label for="password" class="block text-sm font-medium text-text-primary mb-2">
-                            Password <span class="text-error">*</span>
-                        </label>
-                        <div class="relative">
-                            <input type="password" id="password" name="password" class="form-input pr-10" placeholder="Enter your password" required autocomplete="current-password" />
-                            <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                <svg class="w-5 h-5 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div id="loginError" class="bg-error-100 border border-error-500 rounded-lg p-3 hidden">
-                        <div class="flex items-center">
-                            <svg class="w-5 h-5 text-error-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-                            </svg>
-                            <span class="text-sm text-error-600" id="loginErrorMessage"></span>
-                        </div>
-                    </div>
-
-                    <button type="submit" id="loginButton" class="w-full btn-primary py-3 text-base font-semibold rounded-lg shadow-civic hover:shadow-civic-md transition-all duration-200 flex items-center justify-center">
-                        <span id="loginButtonText">Sign In</span>
-                        <svg id="loginSpinner" class="w-5 h-5 ml-2 animate-spin hidden" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+            <div>
+                <label for="password" class="block text-sm font-medium text-text-primary mb-2">Password</label>
+                <div class="relative">
+                    <input type="password" id="password" name="password" placeholder="Enter your password" class="form-input w-full pr-10" required>
+                    <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                        <svg class="w-5 h-5 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                         </svg>
                     </button>
-                </form>
-
-                <div class="mt-6 text-center">
-                    <p class="text-text-secondary">
-                        Don't have an account? 
-                        <a href="user_registration.html" class="text-primary font-medium hover:underline transition-colors">Register here</a>
-                    </p>
                 </div>
             </div>
-        </div>
-    </main>
+
+            <button type="submit" id="loginButton" class="w-full btn-primary py-3 text-base font-semibold rounded-lg shadow-civic hover:shadow-civic-md transition-all duration-200 flex items-center justify-center space-x-2">
+                <span id="loginButtonText">Sign In</span>
+                <svg id="loginSpinner" class="w-5 h-5 text-white animate-spin hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" class="opacity-25"></circle>
+                    <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" class="opacity-75"></path>
+                </svg>
+            </button>
+        </form>
+
+        <p class="mt-6 text-center text-text-secondary text-sm">
+            Don't have an account? 
+            <a href="user_registration.html" class="text-primary hover:underline">Sign up</a>
+        </p>
+    </div>
 
     <!-- Firebase & Login Script -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-firestore.js";
+        import { auth, signInWithEmailAndPassword, db, doc, getDoc } from "../firebase/firebase.js";
 
-       const firebaseConfig = {
-    apiKey: "AIzaSyDZzNQcecE-m7VdN6EZ4q4oo_gudzvsjyc",
-    authDomain: "bushub-e5d68.firebaseapp.com",
-    projectId: "bushub-e5d68",
-    storageBucket: "bushub-e5d68.firebasestorage.app",
-    messagingSenderId: "419368778198",
-    appId: "1:419368778198:web:a9a3e6ea4f6f95bf9a8c77",
-    measurementId: "G-SHBY0QXGHN"
-  };
-
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // Password toggle
-        document.getElementById('togglePassword').addEventListener('click', () => {
-            const pwField = document.getElementById('password');
-            pwField.type = pwField.type === "password" ? "text" : "password";
+        // Toggle password visibility
+        const togglePassword = document.getElementById("togglePassword");
+        const passwordField = document.getElementById("password");
+        togglePassword.addEventListener("click", () => {
+            if (passwordField.type === "password") passwordField.type = "text";
+            else passwordField.type = "password";
         });
 
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const loginError = document.getElementById('loginError');
-            const loginErrorMessage = document.getElementById('loginErrorMessage');
-            loginError.classList.add('hidden');
+        // UB email validation
+        function validateUBDomain(email) {
+            return email.toLowerCase().endsWith("@ub.edu.bz");
+        }
 
-            // Show loading
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = passwordField.value;
+            const loginError = document.getElementById("loginError");
+            const loginErrorMessage = document.getElementById("loginErrorMessage");
+
+            loginError.classList.add("hidden");
+
+            if (!validateUBDomain(email)) {
+                loginErrorMessage.textContent = "Only UB (@ub.edu.bz) emails are allowed.";
+                loginError.classList.remove("hidden");
+                return;
+            }
+
+            // Show spinner
             document.getElementById("loginButtonText").textContent = "Signing In...";
             document.getElementById("loginSpinner").classList.remove("hidden");
 
@@ -158,23 +98,25 @@
                 const userCred = await signInWithEmailAndPassword(auth, email, password);
                 const uid = userCred.user.uid;
 
-                // Get user role
                 const userRef = doc(db, "user", uid);
                 const userSnap = await getDoc(userRef);
 
                 if (!userSnap.exists()) {
                     loginErrorMessage.textContent = "User record missing. Contact admin.";
-                    loginError.classList.remove('hidden');
-                } else {
-                    const role = userSnap.data().role;
-                    if (role === "admin") window.location.href = "admin_dashboard.html";
-                    else if (role === "driver") window.location.href = "driver_dashboard.html";
-                    else window.location.href = "user_dashboard.html";
+                    loginError.classList.remove("hidden");
+                    return;
                 }
+
+                const role = userSnap.data().role;
+
+                if (role === "admin") window.location.href = "admin_dashboard.html";
+                else if (role === "driver") window.location.href = "driver_dashboard.html";
+                else window.location.href = "user_dashboard.html";
+
             } catch (err) {
-                loginErrorMessage.textContent = "Invalid email or password.";
-                loginError.classList.remove('hidden');
                 console.error(err);
+                loginErrorMessage.textContent = "Invalid email or password.";
+                loginError.classList.remove("hidden");
             } finally {
                 document.getElementById("loginButtonText").textContent = "Sign In";
                 document.getElementById("loginSpinner").classList.add("hidden");
