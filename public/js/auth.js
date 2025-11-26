@@ -1,64 +1,90 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - BusHub</title>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="bg-background min-h-screen">
+  <main class="flex-1 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md mx-auto">
+      <div class="bg-surface rounded-lg shadow-civic-lg border border-border p-6 sm:p-8">
+        <h1 class="text-2xl font-bold text-text-primary mb-4 text-center">Sign In</h1>
 
-// =======================
-// Firebase config
-// =======================
-const firebaseConfig = {
-    apiKey: "AIzaSyDZzNQcecE-m7VdN6EZ4q4oo_gudzvsjyc",
-    authDomain: "bushub-e5d68.firebaseapp.com",
-    projectId: "bushub-e5d68",
-    storageBucket: "bushub-e5d68.appspot.com", // ✅ fixed
-    messagingSenderId: "419368778198",
-    appId: "1:419368778198:web:a9a3e6ea4f6f95bf9a8c77",
-    measurementId: "G-SHBY0QXGHN"
-};
+        <div id="errorBox" class="hidden bg-red-100 text-red-700 p-2 rounded mb-4"></div>
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+        <form id="loginForm" class="space-y-6">
+          <div>
+            <label for="email" class="block text-sm font-medium text-text-primary mb-2">Email Address *</label>
+            <input type="email" id="email" required class="form-input w-full p-2 border rounded">
+          </div>
+          <div>
+            <label for="password" class="block text-sm font-medium text-text-primary mb-2">Password *</label>
+            <input type="password" id="password" required class="form-input w-full p-2 border rounded">
+            <button type="button" id="togglePassword">Show/Hide</button>
+          </div>
+          <button type="submit" class="w-full bg-primary text-white p-2 rounded font-semibold">Sign In</button>
+        </form>
+      </div>
+    </div>
+  </main>
 
-// ==========================
-// LOGIN FUNCTION
-// ==========================
-document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
+    const firebaseConfig = {
+      apiKey: "AIzaSyDZzNQcecE-m7VdN6EZ4q4oo_gudzvsjyc",
+      authDomain: "bushub-e5d68.firebaseapp.com",
+      projectId: "bushub-e5d68",
+      storageBucket: "bushub-e5d68.appspot.com",
+      messagingSenderId: "419368778198",
+      appId: "1:419368778198:web:a9a3e6ea4f6f95bf9a8c77",
+      measurementId: "G-SHBY0QXGHN"
+    };
 
-    try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password); // ✅ fixed
-        const user = userCredential.user;
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-        console.log("Login successful:", user.email);
+    // Toggle password visibility
+    const toggleBtn = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+    toggleBtn.addEventListener("click", () => {
+      passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+    });
 
-        routeUserByRole(email);
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const errorBox = document.getElementById("errorBox");
+      errorBox.classList.add("hidden");
 
-    } catch (error) {
-        console.error("Login error:", error);
+      try {
+        const usersRef = collection(db, "user"); // 🔥 collection is "user"
+        const q = query(usersRef, where("email", "==", email), where("password", "==", password));
+        const snapshot = await getDocs(q);
 
-        const errBox = document.getElementById("errorBox");
-        errBox.innerText = error.message;
-        errBox.classList.remove("hidden");
-    }
-});
+        if (snapshot.empty) {
+          errorBox.innerText = "Incorrect email or password!";
+          errorBox.classList.remove("hidden");
+          return;
+        }
 
-// ==========================
-// ROLE ROUTER
-// ==========================
-function routeUserByRole(email) {
-    const adminEmails = ["admin@ub.edu.bz","bossman@ub.edu.bz","itadmin@ub.edu.bz"];
-    const driverEmails = ["driver@ub.edu.bz","driver2@ub.edu.bz","busdriver@ub.edu.bz"];
+        const userData = snapshot.docs[0].data();
 
-    if (adminEmails.includes(email)) window.location.href = "admin_dashboard.html";
-    else if (driverEmails.includes(email)) window.location.href = "driver_dashboard.html";
-    else window.location.href = "user_dashboard.html";
-}
+        // Redirect based on role
+        if (userData.role === "admin") window.location.href = "admin_dashboard.html";
+        else if (userData.role === "driver") window.location.href = "driver_dashboard.html";
+        else window.location.href = "user_dashboard.html";
 
-// ==========================
-// Optional: react to auth state
-// ==========================
-onAuthStateChanged(auth, (user) => {
-    if (user) console.log("User already logged in:", user.email);
-});
+      } catch (err) {
+        console.error(err);
+        errorBox.innerText = "An error occurred. Try again.";
+        errorBox.classList.remove("hidden");
+      }
+    });
+  </script>
+</body>
+</html>
