@@ -131,23 +131,34 @@ loginForm.addEventListener('submit', async (e) => {
     const userData = userSnap.exists() ? userSnap.data() : {};
     console.log('Firestore user data:', userData);
 
-    // Check Firestore role field (case-insensitive)
-    let isAdmin = !!(userData.role && String(userData.role).toLowerCase() === 'admin');
+    // Determine role (case-insensitive) and check token claims as fallback
+    const role = (userData.role && String(userData.role).toLowerCase()) || null;
+    let isAdmin = role === 'admin';
+    let isDriver = role === 'driver';
+    let isUser = !isAdmin && !isDriver;
 
-    // Also check custom claim on ID token (force refresh to pick up recent changes)
     try {
-      const idTokenResult = await user.getIdTokenResult(true); // true forces refresh
+      const idTokenResult = await user.getIdTokenResult(true); // force refresh
       console.log('ID token claims:', idTokenResult?.claims);
-      if (idTokenResult?.claims?.admin === true) isAdmin = true;
+      // support boolean custom claims like admin=true or driver=true, or a role claim
+      if (!isAdmin && idTokenResult?.claims?.admin === true) isAdmin = true;
+      if (!isDriver && idTokenResult?.claims?.driver === true) isDriver = true;
+      if (!role && idTokenResult?.claims?.role) {
+        const tokRole = String(idTokenResult.claims.role).toLowerCase();
+        if (tokRole === 'admin') isAdmin = true;
+        if (tokRole === 'driver') isDriver = true;
+      }
     } catch (tokenErr) {
       console.warn('Error reading token claims:', tokenErr);
     }
 
-    console.log('isAdmin?', isAdmin);
+    console.log('isAdmin:', isAdmin, 'isDriver:', isDriver);
 
-    // Redirect relative to this file (this file is in /pages/)
+    // Redirect (file is in /pages/, use relative filenames)
     if (isAdmin) {
       window.location.href = 'admin_dashboard.html';
+    } else if (isDriver) {
+      window.location.href = 'driver_dashboard.html';
     } else {
       window.location.href = 'user_dashboard.html';
     }
