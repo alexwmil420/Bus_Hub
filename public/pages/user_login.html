@@ -60,9 +60,9 @@
 </main>
 
 <script type="module">
-import { auth, db } from '../firebase/auth.js';
+import { auth, db } from "../firebase/firebase.js";
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const loginForm = document.getElementById('loginForm');
 const errorBox = document.getElementById('errorBox');
@@ -109,26 +109,54 @@ loginForm.addEventListener('submit', async (e) => {
 
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const uid = userCredential.user.uid;
+    const user = userCredential.user;
+    const uid = user.uid;
+
+    console.log('Signed in uid:', uid);
 
     const userRef = doc(db, "users", uid);
-    const userSnap = await getDoc(userRef);
+    let userSnap = await getDoc(userRef);
 
+    // If no Firestore record, optionally create a minimal one
     if (!userSnap.exists()) {
-      errorBox.innerText = "User record not found. Contact admin.";
-      errorBox.classList.remove('hidden');
-      return;
+      console.warn('No Firestore user doc found for', uid);
+      try {
+        await setDoc(userRef, { email, role: "user", createdAt: new Date().toISOString() });
+        userSnap = await getDoc(userRef);
+      } catch (createErr) {
+        console.error('Could not create user doc:', createErr);
+      }
     }
 
-    const userData = userSnap.data();
+    const userData = userSnap.exists() ? userSnap.data() : {};
+    console.log('Firestore user data:', userData);
 
-    if (userData.role === "admin") window.location.href = "admin_dashboard.html";
-    else if (userData.role === "driver") window.location.href = "driver_dashboard.html";
-    else window.location.href = "user_dashboard.html";
+    // Check Firestore role field (case-insensitive)
+    let isAdmin = !!(userData.role && String(userData.role).toLowerCase() === 'admin');
+
+    // Also check custom claim on ID token (force refresh to pick up recent changes)
+    try {
+      const idTokenResult = await user.getIdTokenResult(true); // true forces refresh
+      console.log('ID token claims:', idTokenResult?.claims);
+      if (idTokenResult?.claims?.admin === true) isAdmin = true;
+    } catch (tokenErr) {
+      console.warn('Error reading token claims:', tokenErr);
+    }
+
+    console.log('isAdmin?', isAdmin);
+
+    // Redirect relative to this file (this file is in /pages/)
+    if (isAdmin) {
+      window.location.href = 'admin_dashboard.html';
+    } else {
+      window.location.href = 'user_dashboard.html';
+    }
 
   } catch (err) {
     console.error(err);
-    errorBox.innerText = "Incorrect email or password!";
+    const code = err?.code || 'error';
+    const msg = err?.message || 'Incorrect email or password!';
+    errorBox.innerText = `${code}: ${msg}`;
     errorBox.classList.remove('hidden');
   }
 });
